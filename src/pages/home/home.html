@@ -1,0 +1,206 @@
+<ion-content id="content" style="background:#26262d;">
+  <header class="U7IH3nT-xT RwMWOeGUEX">
+    <div class="pcWvID-kmo"></div>
+    <div class="Container _3JvwPHauvB">
+      <div class="menu">
+        <ion-icon *ngIf="list" style="color:#fff;font-size:30px;" name="md-apps" (click)="doGrid()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:30px;padding-left:20px;text-decoration: none">Ometube TV</a>
+        </ion-icon>
+        <ion-icon *ngIf="!list" style="color:#fff;font-size:30px;" name="md-keypad" (click)="doList()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:30px;padding-left:20px;text-decoration: none">Ometube TV</a>
+        </ion-icon>
+      </div>
+    </div>
+  </header>
+  <ion-slides id="live" *ngIf="channellive && channellive.length" effect="slide" autoplay="5000" loop="true" speed="400" pager="true"
+    style="background: #26262d;opacity: 1;height:35%;">
+    <ion-slide *ngFor="let live of channellive" class="slides-hover" style="background:url(assets/imgs/background.jpg);background-repeat:no-repeat;background-size: 100% 100%;">
+      <div (click)="doDetailLive(live)" style="z-index: 888;">
+        <div *ngIf="channellive" style="color: #fff;z-index:999;font-weight:bold;font-size:25px;;text-shadow: 2px 2px 2px #666;padding-top:110px;">{{live.title}}</div>
+        <div *ngIf="channellive" style="color: #fff;font-weight:bold;font-size:25px;text-shadow: 2px 2px 2px #666;">{{live.category}}</div>
+        <div *ngIf="live.url" style="font-weight:bold;font-weight: bold;color:red;font-weight: bold;font-size:25px;padding-bottom:60px;text-shadow: 2px 2px 2px #fff;">LIVE NOW</div>
+        <div *ngIf="!live.url" style="color: #fff;padding-bottom:60px;font-size:15px;text-shadow: 2px 2px 2px #666;">{{live.datestart | date:'EEEE, dd MMMM yyyy HH:mm'}} WIB (+7) </div>
+      </div>
+      <button (click)="doSports()" style="position:absolute;right:10px;top:45%;font-size:30px;color:#fff;z-index: 999;background: transparent;">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
+  <ion-grid id="ads" style="width:100%;padding-left:100px;padding-right:100px;">
+    <ion-row>
+      <ion-col col-12>
+        <a href="http://103.10.200.61/home" alt="Pokercc by Texaspoker.cc" title="texaspoker.cc" target="_blank" rel="nofollow">
+          <img src="http://gudangmovies21.cc/wp-content/uploads/TPK.gif" width="100%" height="120px">
+        </a>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-9>
+        <div id="list">
+          <!--<div *ngIf="favorit && favorit.length">
+            <div>
+              <ion-item no-lines style="background:transparent;margin-bottom:-15px;" padding>
+                <div style="font-size:30px;color:#ffffff;">Arsip</div>
+                <ion-icon name="ios-more" class="slides-hover" item-end style="font-size:60px;color:#ffffff;" (click)="doDetailArsip()"></ion-icon>
+              </ion-item>
+              <div>
+                <ion-slides *ngIf="favorit && favorit.length" class="slides-hover" style="height:25%;border-bottom:1px solid;border-color:rgba(211,215,219,.1);"
+                  freeMode="true" spaceBetween="-10" slidesPerView="6.2" loop="false">
+                  <div *ngFor="let channeldetail of favorit">
+                    <ion-slide (click)="doPreviewArsip(channeldetail)">
+                      <ion-card>
+                        <div class="container">
+                          <img src="{{channeldetail.thumbnail_picture}}" style="height:300px;width:100%;" />
+                          <div class="bottom">{{channeldetail.title}}</div>
+                        </div>
+                      </ion-card>
+                    </ion-slide>
+                  </div>
+                </ion-slides>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="mostwatch && mostwatch.length">
+            <div>
+              <ion-item no-lines style="background:transparent;margin-bottom:-15px;" padding>
+                <div style="font-size:30px;color:#ffffff;">Most Watched</div>
+                <ion-icon name="ios-more" class="slides-hover" item-end style="font-size:60px;color:#ffffff;" (click)="doDetailMostWatched()"></ion-icon>
+              </ion-item>
+              <div>
+                <ion-slides *ngIf="mostwatch && mostwatch.length" class="slides-hover" style="height:25%;border-bottom:1px solid;border-color:rgba(211,215,219,.1);"
+                  freeMode="true" spaceBetween="-10" slidesPerView="6.2" loop="false">
+                  <div *ngFor="let channeldetail of mostwatch">
+                    <ion-slide (click)="doPreviewArsip(channeldetail)">
+                      <ion-card>
+                        <div class="container">
+                          <img src="{{channeldetail.thumbnail_picture}}" style="height:300px;width:100%;" />
+                          <div class="bottom">{{channeldetail.title}}</div>
+                        </div>
+                      </ion-card>
+                    </ion-slide>
+                  </div>
+                </ion-slides>
+              </div>
+            </div>
+          </div>-->
+          <div *ngFor="let channel of channellistall">
+            <ion-item no-lines style="background:transparent;margin-bottom:-15px;" padding>
+              <div style="font-size:20px;color:#ffffff;">{{channel.name}}</div>
+              <ion-icon name="ios-more" item-end class="slides-hover" style="font-size:50px;color:#ffffff;" (click)="doDetail(channel)"></ion-icon>
+            </ion-item>
+            <div *ngIf="channel.category == 'TV'">
+              <ion-slides *ngIf="channels && channels.length && width >= 1360" class="slides-hover" style="height:25%;border-bottom:1px solid;border-color:rgba(211,215,219,.1);"
+                freeMode="true" spaceBetween="-10" slidesPerView="6.2" loop="true">
+                <div *ngFor="let channeldetail of channels">
+                  <ion-slide *ngIf="channeldetail.name == channel.name" (click)="doPlayerWeb(channeldetail)">
+                    <ion-card>
+                      <div class="container">
+                        <img src="../../assets/imgs/tv.png" style="height:200px;width:100%;" />
+                        <div class="bottom">{{channeldetail.title}}</div>
+                      </div>
+                    </ion-card>
+                  </ion-slide>
+                </div>
+              </ion-slides>
+              <ion-slides *ngIf="channels && channels.length && width >= 1280 && width < 1360" class="slides-hover" style="height:25%;border-bottom:1px solid;border-color:rgba(211,215,219,.1);"
+                freeMode="true" spaceBetween="-10" slidesPerView="5.2" loop="true">
+                <div *ngFor="let channeldetail of channels">
+                  <ion-slide *ngIf="channeldetail.name == channel.name" (click)="doPlayerWeb(channeldetail)">
+                    <ion-card>
+                      <div class="container">
+                        <img src="../../assets/imgs/tv.png" style="height:200px;width:100%;" />
+                        <div class="bottom">{{channeldetail.title}}</div>
+                      </div>
+                    </ion-card>
+                  </ion-slide>
+                </div>
+              </ion-slides>
+              <ion-slides *ngIf="channels && channels.length && width >= 800 && width < 1280" class="slides-hover" style="height:25%;border-bottom:1px solid;border-color:rgba(211,215,219,.1);"
+                freeMode="true" spaceBetween="-10" slidesPerView="4.2" loop="true">
+                <div *ngFor="let channeldetail of channels">
+                  <ion-slide *ngIf="channeldetail.name == channel.name" (click)="doPlayerWeb(channeldetail)">
+                    <ion-card>
+                      <div class="container">
+                        <img src="../../assets/imgs/tv.png" style="height:200px;width:100%;" />
+                        <div class="bottom">{{channeldetail.title}}</div>
+                      </div>
+                    </ion-card>
+                  </ion-slide>
+                </div>
+              </ion-slides>
+            </div>
+            <div *ngIf="channel.category == 'STREAM'">
+              <ion-slides *ngIf="channels && channels.length && width >= 1360" class="slides-hover" style="height:25%;border-bottom:1px solid;border-color:rgba(211,215,219,.1);"
+                freeMode="true" spaceBetween="-10" slidesPerView="6.2" loop="true">
+                <div *ngFor="let channeldetail of channels">
+                  <ion-slide *ngIf="channeldetail.name == channel.name" (click)="doPlayerWeb(channeldetail)">
+                    <ion-card>
+                      <div class="container">
+                        <img src="{{channeldetail.thumbnail_picture}}" style="height:200px;width:100%;" />
+                        <div class="bottom">{{channeldetail.title}}</div>
+                      </div>
+                    </ion-card>
+                  </ion-slide>
+                </div>
+              </ion-slides>
+              <ion-slides *ngIf="channels && channels.length && width >= 1280 && width < 1360" class="slides-hover" style="height:25%;border-bottom:1px solid;border-color:rgba(211,215,219,.1);"
+                freeMode="true" spaceBetween="-10" slidesPerView="5.2" loop="true">
+                <div *ngFor="let channeldetail of channels">
+                  <ion-slide *ngIf="channeldetail.name == channel.name" (click)="doPlayerWeb(channeldetail)">
+                    <ion-card>
+                      <div class="container">
+                        <img src="{{channeldetail.thumbnail_picture}}" style="height:200px;width:100%;" />
+                        <div class="bottom">{{channeldetail.title}}</div>
+                      </div>
+                    </ion-card>
+                  </ion-slide>
+                </div>
+              </ion-slides>
+              <ion-slides *ngIf="channels && channels.length && width >= 800 && width < 1280" class="slides-hover" style="height:25%;border-bottom:1px solid;border-color:rgba(211,215,219,.1);"
+                freeMode="true" spaceBetween="-10" slidesPerView="4.2" loop="true">
+                <div *ngFor="let channeldetail of channels">
+                  <ion-slide *ngIf="channeldetail.name == channel.name" (click)="doPlayerWeb(channeldetail)">
+                    <ion-card>
+                      <div class="container">
+                        <img src="{{channeldetail.thumbnail_picture}}" style="height:200px;width:100%;" />
+                        <div class="bottom">{{channeldetail.title}}</div>
+                      </div>
+                    </ion-card>
+                  </ion-slide>
+                </div>
+              </ion-slides>
+            </div>
+          </div>
+          <div style="text-align: center;color:#fff;padding-bottom:10px;z-index: 999;width: 135%;border-top:1px solid;border-color:rgba(211,215,219,.1);">
+            <h5>Ometube TV</h5>
+            <div style="padding-bottom:10px;">
+              <a href="//www.dmca.com/Protection/Status.aspx?ID=736f5b2f-92b4-400d-a8e2-c76585e43d93" title="DMCA.com Protection Status"
+                class="dmca-badge">
+                <img src="//images.dmca.com/Badges/dmca-badge-w100-5x1-10.png?ID=736f5b2f-92b4-400d-a8e2-c76585e43d93" alt="DMCA.com Protection Status">
+              </a>
+              <script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+            </div>© 2018
+            <a style="color:#fff;" href="/privacy/" rel="nofollow">Privacy</a> |
+            <a style="color:#fff;" href="/disclaimer/" rel="nofollow">Disclaimer</a> |
+            <a style="color:#fff;" href="/contact/" rel="nofollow">Contact</a>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-3>
+        <div id="ads" style="padding-top:98px;">
+          <a href="http://www.golgol365.org/" title="goalgoal365" target="_blank"><img src="http://gudangmovies21.cc/wp-content/uploads/goalgoal365-1.gif" width="100%" height="250"></a>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div id="grid" style="display: none;margin-top:115px;padding-left:100px;padding-right: 100px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let channel of channellist" class="slides-hover" col-3 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
+          (click)="doDetail(channel)">
+          <p style="color:#fff;font-weight: bold;font-size:15px">{{channel.name}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
