@@ -33,7 +33,10 @@ export class MyApp {
     });
     this.initializeApp();
     this.loader.present().then(() => {
-      /*if (window.devtools.open) {
+      /*if (window.screen.availWidth < window.screen.availHeight) {
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.tvonline.omegastreaming';
+      }
+      if (window.devtools.open) {
         window.location.href = 'https://play.google.com/store/apps/details?id=com.tvonline.omegastreaming';
       }
       // console.log('is DevTools open?', window.devtools.open);
@@ -52,9 +55,9 @@ export class MyApp {
     this.platform.ready().then(() => {
       this.splashScreen.hide();
       this.statusBar.styleDefault();
-      setInterval(() => {
+      /*setInterval(() => {
         console.clear()
-      }, 1000);
+      }, 1000);*/
     });
   }
   ngAfterViewInit() {

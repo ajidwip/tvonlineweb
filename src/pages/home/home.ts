@@ -138,7 +138,7 @@ export class HomePage {
     } catch (e) { }
   }
   doGetListChannel() {
-    this.api.get("table/z_list_channel_web", { params: { filter: "status='OPEN'", limit: 100, sort: "name" + " ASC " } })
+    this.api.get("table/z_list_channel", { params: { filter: "status='OPEN'", limit: 100, sort: "name" + " ASC " } })
       .subscribe(val => {
         this.channellist = val['data']
       }, err => {
@@ -358,8 +358,8 @@ export class HomePage {
       });
   }
   doGetList() {
-    //this.api.get("table/z_list_channel_web", { params: { filter: "status='OPEN' AND (name LIKE 'TV%' OR category='STREAM')", limit: 100, sort: "name" + " ASC " } })
-    this.api.get("table/z_list_channel_web", { params: { filter: "status='OPEN' AND type='GRID'", limit: 100, sort: "name" + " ASC " } })
+    //this.api.get("table/z_list_channel", { params: { filter: "status='OPEN' AND (name LIKE 'TV%' OR category='STREAM')", limit: 100, sort: "name" + " ASC " } })
+    this.api.get("table/z_list_channel", { params: { filter: "status='OPEN' AND type='GRID'", limit: 100, sort: "name" + " ASC " } })
       .subscribe(val => {
         this.channellistall = val['data']
         let data = val['data']
@@ -880,9 +880,8 @@ export class HomePage {
         }
       });
   }
-  doPlayerWeb(channeldetail) {
-    console.log(channeldetail)
-    this.navCtrl.push('PlayerwebPage', {
+  doPlayerweb(channeldetail) {
+    this.navCtrl.push('PlayerPage', {
       id: channeldetail.id,
       type: channeldetail.type,
       name: channeldetail.name,
@@ -891,6 +890,16 @@ export class HomePage {
       title: channeldetail.title,
       thumbnail_picture: channeldetail.thumbnail_picture,
       xml: channeldetail.xml,
+      trailer: channeldetail.trailer,
     })
+  }
+  doPrivacy() {
+    this.navCtrl.push('PrivacyPage')
+  }
+  doDisclaimer() {
+    this.navCtrl.push('DisclaimerPage')
+  }
+  doContact() {
+    this.navCtrl.push('ContactPage')
   }
 }

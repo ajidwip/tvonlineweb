@@ -11,6 +11,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 declare var window: any;
 declare var videojs: any;
+declare var adsbygoogle: any[];
 
 @IonicPage()
 @Component({
@@ -91,6 +92,12 @@ export class ChannelPage {
         this.doGetChannelMostWatched();
       }
     });
+  }
+  ngAfterViewInit() {
+    //this.loader.dismiss()
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) { }
   }
   doShowSearch() {
     this.showsearch = this.showsearch ? false : true
@@ -659,9 +666,10 @@ export class ChannelPage {
     console.log(channel)
     this.qualityid = ''
     if (channel.type == 'TV') {
-      this.navCtrl.push('PlayerwebPage', {
+      this.navCtrl.push('PlayerPage', {
         id: channel.id,
         type: channel.type,
+        name: channel.name,
         url: channel.url,
         stream: channel.stream,
         title: channel.title,
@@ -838,7 +846,7 @@ export class ChannelPage {
   doQualityLive(channeld) {
     this.qualityid = '';
     if (channeld.url != '') {
-      this.navCtrl.push('PlayerwebPage', {
+      this.navCtrl.push('PlayerPage', {
         id: channeld.id,
         type: channeld.type,
         url: channeld.url,
@@ -865,7 +873,7 @@ export class ChannelPage {
     this.channelname = this.navParam.get('name')
   }
   doGetListChannel() {
-    this.api.get("table/z_list_channel_web", { params: { filter: "status='OPEN'", limit: 100, sort: "name" + " ASC " } })
+    this.api.get("table/z_list_channel", { params: { filter: "status='OPEN'", limit: 100, sort: "name" + " ASC " } })
       .subscribe(val => {
         this.channellist = val['data']
       }, err => {
@@ -886,9 +894,9 @@ export class ChannelPage {
     this.text = ''
     this.getSearch(this.text)
   }
-  doPlayerWeb(channel) {
+  doPlayerweb(channel) {
     console.log(channel)
-    this.navCtrl.push('PlayerwebPage', {
+    this.navCtrl.push('PlayerPage', {
       id: channel.id,
       type: channel.type,
       name: channel.name,
@@ -897,6 +905,7 @@ export class ChannelPage {
       title: channel.title,
       thumbnail_picture: channel.thumbnail_picture,
       xml: channel.xml,
+      trailer: channel.trailer,
     })
   }
 

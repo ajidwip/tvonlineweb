@@ -3,13 +3,16 @@
     <div class="pcWvID-kmo"></div>
     <div class="Container _3JvwPHauvB">
       <div class="menu">
-        <ion-icon style="color:#fff;font-size:30px;" name="md-apps">
-          <a style="font-family: Bernard MT Condensed;color:#fff;font-size:30px;padding-left:20px;">Ometube TV</a>
+        <ion-icon *ngIf="listchannel == false" style="color:#fff;font-size:30px;" name="md-apps" (click)="doChannelList()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:30px;padding-left:20px;text-decoration: none;">Ometube TV</a>
+        </ion-icon>
+        <ion-icon *ngIf="listchannel == true" style="color:#fff;font-size:30px;" name="md-keypad" (click)="doChannel()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:30px;padding-left:20px;text-decoration: none;">Ometube TV</a>
         </ion-icon>
       </div>
     </div>
   </header>
-  <div style="margin-top:60px;padding:100px;width:100%;color:#fff;">
+  <div *ngIf="listchannel == false" style="margin-top:40px;padding:100px;width:100%;color:#fff;">
     <h1 style="text-align: center;">Privacy Policy</h1>
     <br>
     <h4>Privacy Anda</h4>
@@ -31,7 +34,7 @@
       menyatakan tunduk pada kebijakan privasi Google.
     </p>
     <p style="font-size:15px;">
-      Iklan atau jaringan iklan oleh pihak ketiga mungkin akan digunakan pada situs tvbersama.com. Atas iklan tersebut terdapat
+      Iklan atau jaringan iklan oleh pihak ketiga mungkin akan digunakan pada situs ometubetv.com. Atas iklan tersebut terdapat
       kemungkinan digunakannya cookie untuk melacak aktivitas pengguna di website ini, untuk mengukur efektivitas iklan dan
       alasan lainnya yang akan disediakan dalam kebijakan privasi mereka sendiri. Kami tidak memiliki akses atau kontrol
       terhadap cookies yang mungkin digunakan oleh pihak ketiga pemasang iklan.
@@ -67,5 +70,15 @@
       Jika Anda memiliki pertanyaan terkait dengan privacy policy ini, Anda dapat mengirimkan pesan dengan mengisi contact
       yang telah kami sediakan.
     </p>
+  </div>
+  <div *ngIf="listchannel == true" style="margin-top:115px;padding-left:100px;padding-right: 100px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let channel of channellist" class="slides-hover" col-3 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
+          (click)="doDetail(channel)">
+          <p style="color:#fff;font-weight: bold;font-size:15px">{{channel.name}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

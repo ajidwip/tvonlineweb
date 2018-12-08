@@ -1,15 +1,18 @@
 <ion-content id="content" style="background:#26262d;">
-  <header class="U7Ih3nT-xT RwMWOeGUEX">
+  <header class="U7IH3nT-xT RwMWOeGUEX">
     <div class="pcWvID-kmo"></div>
     <div class="Container _3JvwPHauvB">
       <div class="menu">
-        <ion-icon style="color:#fff;font-size:30px;" name="md-apps">
-          <a style="font-family: Bernard MT Condensed;color:#fff;font-size:30px;padding-left:20px;">Ometube TV</a>
+        <ion-icon *ngIf="listchannel == false" style="color:#fff;font-size:30px;" name="md-apps" (click)="doChannelList()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:30px;padding-left:20px;text-decoration: none;">Ometube TV</a>
+        </ion-icon>
+        <ion-icon *ngIf="listchannel == true" style="color:#fff;font-size:30px;" name="md-keypad" (click)="doChannel()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:30px;padding-left:20px;text-decoration: none;">Ometube TV</a>
         </ion-icon>
       </div>
     </div>
   </header>
-  <div style="margin-top:60px;padding:100px;width:100%;color:#fff;">
+  <div *ngIf="listchannel == false" style="margin-top:40px;padding:100px;width:100%;color:#fff;">
     <h1 style="text-align: center;">Disclaimer</h1>
     <br>
     <h4>www.ometubetv.com Tidak Menjamin Keakuratan</h4>
@@ -55,5 +58,15 @@
       berwujud yaitu risiko anda sendiri. Bila anda membutuhkan anjuran tentang haki dengan spesial, silahkan menghendaki
       anjuran dari pengacara atau konsultan haki.
     </p>
+  </div>
+  <div *ngIf="listchannel == true" style="margin-top:115px;padding-left:100px;padding-right: 100px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let channel of channellist" class="slides-hover" col-3 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
+          (click)="doDetail(channel)">
+          <p style="color:#fff;font-weight: bold;font-size:15px">{{channel.name}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

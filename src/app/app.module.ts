@@ -23,10 +23,9 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
   ],
   imports: [
     BrowserModule,
-    // IonicModule.forRoot(MyApp, {
-    //   locationStrategy: 'path'
-    // }),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      locationStrategy: 'path'
+    }),
     HttpClientModule,
   ],
   bootstrap: [IonicApp],

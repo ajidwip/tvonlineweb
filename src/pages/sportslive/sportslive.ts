@@ -8,6 +8,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { HttpHeaders } from "@angular/common/http";
 
 declare var window: any;
+declare var adsbygoogle: any[];
 
 @IonicPage()
 @Component({
@@ -78,7 +79,7 @@ export class SportslivePage {
   }
   goToPlay(channel) {
     if (channel.url != '') {
-      this.navCtrl.push('PlayerwebPage', {
+      this.navCtrl.push('PlayerPage', {
         id: channel.id,
         type: channel.type,
         url: channel.url,
@@ -94,6 +95,11 @@ export class SportslivePage {
       });
       alert.present();
     }
+  }
+  ngAfterViewInit() {
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) { }
   }
   ionViewDidEnter() {
     this.appVersion.getPackageName().then((name) => {
@@ -117,7 +123,7 @@ export class SportslivePage {
     }, (err) => {
 
     })
-    if (this.platform.is('cordova'))  {
+    if (this.platform.is('cordova')) {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     }
   }
@@ -132,12 +138,21 @@ export class SportslivePage {
     this.listchannel = false;
   }
   doGetListChannel() {
-    this.api.get("table/z_list_channel_web", { params: { filter: "status='OPEN'", limit: 100, sort: "name" + " ASC " } })
+    this.api.get("table/z_list_channel", { params: { filter: "status='OPEN'", limit: 100, sort: "name" + " ASC " } })
       .subscribe(val => {
         this.channellist = val['data']
       }, err => {
         this.doGetListChannel();
       });
+  }
+  doDetail(channel) {
+    this.listchannel = false;
+    this.navCtrl.push('ChannelPage', {
+      name: channel.name,
+      category: channel.category,
+      type: channel.type,
+      stream: channel.stream
+    })
   }
 
 }
