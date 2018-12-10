@@ -1,4 +1,4 @@
-<ion-content id="content" style="background:#26262d;">
+<ion-content *ngIf="width > height" id="content" style="background:#26262d;">
   <header class="U7IH3nT-xT RwMWOeGUEX">
     <div class="pcWvID-kmo"></div>
     <div class="Container _3JvwPHauvB">
@@ -12,7 +12,7 @@
       </div>
     </div>
   </header>
-  <div *ngIf="listchannel == false" style="margin-top:40px;padding:100px;width:100%;color:#fff;">
+  <div *ngIf="listchannel == false" style="margin-top:0px;padding:100px;width:100%;color:#fff;">
     <h1 style="text-align: center;">Disclaimer</h1>
     <br>
     <h4>www.ometubetv.com Tidak Menjamin Keakuratan</h4>
@@ -65,6 +65,77 @@
         <ion-col *ngFor="let channel of channellist" class="slides-hover" col-3 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
           (click)="doDetail(channel)">
           <p style="color:#fff;font-weight: bold;font-size:15px">{{channel.name}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+<ion-content *ngIf="width < height" id="content" style="background:#26262d;">
+  <header class="U7IH3nT-xT RwMWOeGUEX">
+    <div class="pcWvID-kmo"></div>
+    <div class="Container _3JvwPHauvB">
+      <div class="menu" style="margin:auto;">
+        <ion-icon *ngIf="listchannel == false" style="color:#fff;font-size:30px;" name="md-apps" (click)="doChannelList()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:25px;padding-left:5px;text-decoration: none;">Ometube TV</a>
+        </ion-icon>
+        <ion-icon *ngIf="listchannel == true" style="color:#fff;font-size:30px;" name="md-keypad" (click)="doChannel()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:25px;padding-left:5px;text-decoration: none;">Ometube TV</a>
+        </ion-icon>
+      </div>
+    </div>
+  </header>
+  <div *ngIf="listchannel == false" style="padding-top:100px;padding-left:20px;padding-right:20px;width:100%;color:#fff;">
+    <h1 style="text-align: left;">Disclaimer</h1>
+    <h4>www.ometubetv.com Tidak Menjamin Keakuratan</h4>
+    <p style="font-size:15px;">
+      ometubetv merupakan sebuah situs tempat nonton tv online indonesia live streaming terlengkap tercepat tanpa buffering dengan
+      jadwal bola dan streaming bola online. Dengan sumber terbuka serta memperoleh informasi dan referensi dari beragam
+      portal seperti situs wikipedia, website berita nasional serta internasional, dan portal-portal yang terkait.
+    </p>
+    <p style="font-size:15px;">
+      www.ometubetv.com tidak bisa menanggung keabsahan maupun keakuratan info yang ditemukan di sini. Tidak seorangpun dari penulis
+      artikel, sponsor, administrator, atau siapa saja juga yang terlibat dengan ometubetv. Didalam cara apa pun bisa bertanggungjawab
+      untuk tampilnya info yang tidak akurat, maupun untuk pemakaian anda yang ada atau tertaut dari halaman-halaman didalam
+      website ini.
+    </p>
+    <br>
+    <h4>Tidak Ada Kontrak</h4>
+    <p style="font-size:15px;">
+      Info yang terdapat disini disiapkan dengan gratis, serta tak ada wujud perjanjian atau kontrak apa pun tercipta pada anda
+      serta pemilik atau pengguna dari website ini. Server fisik dimana website ini ada, individual penulis artikel, administrator
+      manapun atau siapa saja juga yang didalam seluruh cara yang barangkali terlibat dengan ometubetv.
+    </p>
+    <br>
+    <h4>
+      Izin Creative Commons
+    </h4>
+    <p style="font-size:15px;">
+      Anda diberikan izin terbatas untuk menyalin apa pun dari website ini dengan ketetapan anda harus mencantumkan sumber berita
+      atau referensi berbentuk link hidup ke website ometubetv ini. Anda diberi kebebasan mengedit, merubah, maupun memodifikasi
+      artikel yang anda salin tersebut, sepanjang cocok dengan ketetapan dari keharusan anda mencantumkan sumber berita atau
+      referensi berbentuk link hidup ke website ometubetv.
+    </p>
+    <br>
+    <h4>Merek</h4>
+    <p style="font-size:15px;">
+      Merk, rancangan atau atau hak-hak sama yang dijelaskan diatas yang digunakan atau diambil dari artikel-artikel ometubetv
+      yaitu kepunyaan dari pemilik tiap-tiap. Pemakaiannya disini tidak bermakna anda bisa memakainya untuk tujuan lain,
+      tak hanya untuk tujuan yang sama atau untuk pemakaian info yang sama.
+    </p>
+    <br>
+    <p style="font-size:15px;">
+      Jika dinyatakan lain, ometubetv tidak di dukung oleh atau berafiliasi dengan pemegang hak apa pun, serta oleh dikarenakan
+      itu ometubetv.com tidak dapat berikan hak pemakaian pada materi yang dilindungi. Pemakaian anda dapat materi yang tidak
+      berwujud yaitu risiko anda sendiri. Bila anda membutuhkan anjuran tentang haki dengan spesial, silahkan menghendaki
+      anjuran dari pengacara atau konsultan haki.
+    </p>
+  </div>
+  <div *ngIf="listchannel == true" style="margin-top:115px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let channel of channellist" class="slides-hover" col-4 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
+          (click)="doDetail(channel)">
+          <p style="color:#fff;font-weight: bold;font-size:12px">{{channel.name}}</p>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -97,6 +97,7 @@
     <allow-navigation href="http://192.168.99.166:8100" />
     <allow-navigation href="http://192.168.0.6:8100" />
     <allow-navigation href="http://192.168.0.12:8100" />
+    <plugin name="org.apache.cordova.plugin.cache" spec="https://github.com/tiltshiftfocus/cordova-plugin-cache.git" />
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="6.4.0" />
 </widget>

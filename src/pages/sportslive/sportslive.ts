@@ -30,6 +30,8 @@ export class SportslivePage {
   public ads: any;
   public listchannel = false;
   public channellist = [];
+  public width: any;
+  public height: any;
 
   constructor(
     public navCtrl: NavController,
@@ -46,6 +48,8 @@ export class SportslivePage {
 
     });
     this.loading.present().then(() => {
+      this.width = window.screen.availWidth;
+      this.height = window.screen.availHeight;
       this.datecurrent = moment().format('YYYY-MM-DD');
       this.datetimecurrent = moment().format('YYYY-MM-DD HH:mm');
       this.param = this.navParam.get('param')

@@ -51,6 +51,7 @@ export class HomePage {
   public livedetail = [];
   public qualityid: any;
   public width: any;
+  public height: any;
 
   constructor(
     public navCtrl: NavController,
@@ -72,10 +73,10 @@ export class HomePage {
     this.loader = this.loadingCtrl.create({
       // cssClass: 'transparent',
     });
-    /*this.loader.present().then(() => {
-     
-    });*/
+    this.loader.present().then(() => {
+    });
     this.width = window.screen.availWidth;
+    this.height = window.screen.availHeight;
     this.datetimecurrent = moment().format('YYYY-MM-DD HH:mm');
     this.doGetLive();
     this.doGetListChannel();
@@ -132,7 +133,7 @@ export class HomePage {
   ionViewWillLeave() {
   }
   ngAfterViewInit() {
-    //this.loader.dismiss()
+    this.loader.dismiss()
     try {
       (adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) { }

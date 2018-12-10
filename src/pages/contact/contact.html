@@ -1,4 +1,4 @@
-<ion-content id="content" style="background:#26262d;">
+<ion-content *ngIf="width > height" id="content" style="background:#26262d;">
   <header class="U7IH3nT-xT RwMWOeGUEX">
     <div class="pcWvID-kmo"></div>
     <div class="Container _3JvwPHauvB">
@@ -12,7 +12,7 @@
       </div>
     </div>
   </header>
-  <div *ngIf="listchannel == false" style="margin-top:40px;padding:100px;width:100%;color:#fff;">
+  <div *ngIf="listchannel == false" style="margin-top:0px;padding:100px;width:100%;color:#fff;">
     <h1 style="text-align: center;">Contact</h1>
     <br>
     <p style="font-size:15px;">
@@ -39,6 +39,51 @@
         <ion-col *ngFor="let channel of channellist" class="slides-hover" col-3 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
           (click)="doDetail(channel)">
           <p style="color:#fff;font-weight: bold;font-size:15px">{{channel.name}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+<ion-content *ngIf="width < height" id="content" style="background:#26262d;">
+  <header class="U7IH3nT-xT RwMWOeGUEX">
+    <div class="pcWvID-kmo"></div>
+    <div class="Container _3JvwPHauvB">
+      <div class="menu" style="margin:auto;">
+        <ion-icon *ngIf="listchannel == false" style="color:#fff;font-size:30px;" name="md-apps" (click)="doChannelList()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:25px;padding-left:5px;text-decoration: none;">Ometube TV</a>
+        </ion-icon>
+        <ion-icon *ngIf="listchannel == true" style="color:#fff;font-size:30px;" name="md-keypad" (click)="doChannel()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:25px;padding-left:5px;text-decoration: none;">Ometube TV</a>
+        </ion-icon>
+      </div>
+    </div>
+  </header>
+  <div *ngIf="listchannel == false" style="padding-top:100px;padding-left:20px;padding-right: 20px;width:100%;color:#fff;">
+    <h1 style="text-align: left;">Contact</h1>
+    <p style="font-size:15px;">
+      Ometubetv.com merupakan sebuah situs tempat nonton tv online indonesia live streaming terlengkap tercepat tanpa buffering
+      dengan jadwal bola dan streaming bola online, dengan menjunjung tinggi azas keterbukaan serta kebersamaan.
+    </p>
+    <br>
+    <p style="font-size:15px;">
+      Bagi anda yang ingin melakukan kontak langsung dengan admin dari ometubetv.com, bisa anda hubungi melalui email dibawah ini
+      :
+    </p>
+    <br>
+    <p style="font-size:15px;">
+      Email: admin@ometubetv.com
+    </p>
+    <br>
+    <p style="font-size:15px;">
+      Terima Kasih
+    </p>
+  </div>
+  <div *ngIf="listchannel == true" style="margin-top:115px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let channel of channellist" class="slides-hover" col-4 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
+          (click)="doDetail(channel)">
+          <p style="color:#fff;font-weight: bold;font-size:12px">{{channel.name}}</p>
         </ion-col>
       </ion-row>
     </ion-grid>

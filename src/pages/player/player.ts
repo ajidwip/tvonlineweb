@@ -45,6 +45,9 @@ export class PlayerPage {
   public quality: any;
   public channelall = [];
   public widthscreen: any;
+  public heightscreen: any;
+  public datecurrent: any;
+  public datetimecurrent: any;
 
   constructor(
     public navCtrl: NavController,
@@ -59,12 +62,15 @@ export class PlayerPage {
     private youtube: YoutubeVideoPlayer,
     private androidFullScreen: AndroidFullScreen,
     private admob: AdMobPro) {
+    this.widthscreen = window.screen.availWidth;
+    this.heightscreen = window.screen.availHeight;
     this.loading = this.loadingCtrl.create({
       // cssClass: 'transparent',
 
     });
     this.loading.present().then(() => {
-      this.widthscreen = window.screen.availWidth;
+      this.datecurrent = moment().format('YYYY-MM-DD');
+      this.datetimecurrent = moment().format('YYYY-MM-DD HH:mm');
       this.id = this.navParam.get('id')
       this.type = this.navParam.get('type')
       this.name = this.navParam.get('name')
@@ -82,7 +88,7 @@ export class PlayerPage {
           });
       }
       else if (this.type == 'STREAM') {
-        if (this.name == 'Anime' || this.name == 'Anime') {
+        if (this.name == 'Anime' || this.name == 'Film Series') {
           this.api.get("table/z_channel_stream_detail", { params: { filter: "status='OPEN' AND name='" + this.title + "'", limit: 1000, sort: "episode" + " DESC" } })
             .subscribe(val => {
               this.channelall = val['data']
@@ -95,6 +101,13 @@ export class PlayerPage {
               this.channelall = val['data']
             });
         }
+      }
+      else if (this.type == 'LIVE') {
+        this.api.get("table/z_channel_live", { params: { limit: 1000, filter: "datestart <=" + "'" + this.datetimecurrent + "'" + " AND " + "datefinish >" + "'" + this.datetimecurrent + "' AND status ='OPEN'", sort: "datestart" + " ASC " } })
+          .subscribe(val => {
+            this.channelall = val['data']
+            console.log(this.channelall)
+          });
       }
       if (this.type == 'TV') {
         if (this.stream != '') {
@@ -300,7 +313,7 @@ export class PlayerPage {
         });
     }
     else if (all.type == 'LIVE') {
-      this.api.get("table/z_channel_live_url", { params: { filter: "status='OPEN' AND id_channel='" + all.id_channel + "'", limit: 1000, sort: "id" + " ASC " } })
+      this.api.get("table/z_channel_live_url", { params: { filter: "status='OPEN' AND id_channel='" + all.id + "'", limit: 1000, sort: "id" + " ASC " } })
         .subscribe(val => {
           this.channels = val['data']
         });

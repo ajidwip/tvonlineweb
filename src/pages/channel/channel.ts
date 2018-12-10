@@ -43,6 +43,8 @@ export class ChannelPage {
   public qualityid: any;
   public listchannel = false;
   public text: any;
+  public width: any;
+  public height: any;
 
   constructor(
     public navCtrl: NavController,
@@ -61,6 +63,8 @@ export class ChannelPage {
 
     });
     this.loader.present().then(() => {
+      this.width = window.screen.availWidth;
+      this.height = window.screen.availHeight;
       this.datecurrent = moment().format('YYYY-MM-DD');
       this.datetimecurrent = moment().format('YYYY-MM-DD HH:mm');
       this.radiostream = false;

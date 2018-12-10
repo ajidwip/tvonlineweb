@@ -1,4 +1,4 @@
-<ion-content id="content" style="background:#26262d;">
+<ion-content *ngIf="width > height" id="content" style="background:#26262d;">
   <header class="U7IH3nT-xT RwMWOeGUEX">
     <div class="pcWvID-kmo"></div>
     <div class="Container _3JvwPHauvB">
@@ -12,7 +12,7 @@
       </div>
     </div>
   </header>
-  <div *ngIf="listchannel == false" style="margin-top:40px;padding:100px;width:100%;color:#fff;">
+  <div *ngIf="listchannel == false" style="margin-top:0px;padding:100px;width:100%;color:#fff;">
     <h1 style="text-align: center;">Privacy Policy</h1>
     <br>
     <h4>Privacy Anda</h4>
@@ -77,6 +77,89 @@
         <ion-col *ngFor="let channel of channellist" class="slides-hover" col-3 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
           (click)="doDetail(channel)">
           <p style="color:#fff;font-weight: bold;font-size:15px">{{channel.name}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+<ion-content *ngIf="width < height" id="content" style="background:#26262d;">
+  <header class="U7IH3nT-xT RwMWOeGUEX">
+    <div class="pcWvID-kmo"></div>
+    <div class="Container _3JvwPHauvB">
+      <div class="menu" style="margin:auto;">
+        <ion-icon *ngIf="listchannel == false" style="color:#fff;font-size:30px;" name="md-apps" (click)="doChannelList()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:25px;padding-left:5px;text-decoration: none;">Ometube TV</a>
+        </ion-icon>
+        <ion-icon *ngIf="listchannel == true" style="color:#fff;font-size:30px;" name="md-keypad" (click)="doChannel()">
+          <a href="/" style="font-family: Bernard MT Condensed;color:#fff;font-size:25px;padding-left:5px;text-decoration: none;">Ometube TV</a>
+        </ion-icon>
+      </div>
+    </div>
+  </header>
+  <div *ngIf="listchannel == false" style="padding-left:20px;padding-right:20px;padding-top:100px;width:100%;color:#fff;">
+    <h1 style="text-align: left;">Privacy Policy</h1>
+    <h4>Privacy Anda</h4>
+    <p style="font-size:15px;">
+      Privasi Anda sangat penting bagi kami, untuk lebih melindungi privasi Anda kami sediakan pemberitahuan ini untuk menjelaskan
+      tentang bagaimana cara informasi dikumpulkan dan digunakan. Untuk membuat pemberitahuan ini mudah ditemukan, kami membuatnya
+      tersedia di homepage kami dan di setiap titik di mana informasi pribadi mungkin akan diminta.
+    </p>
+    <br>
+    <h4>Media Periklanan</h4>
+    <p style="font-size:15px;">
+      Dalam situs ini akan ditemui iklan yang disediakan oleh Google AdSense. Google AdSense sebagai vendor iklan pihak ketiga,
+      menggunakan cookies untuk memasang iklan di situs ini. Penggunaan cookie oleh Google memungkinkan mereka untuk melayani
+      iklan kepada pengunjung yang berdasarkan kunjungan mereka ke situs web ini serta situs lain di internet.
+    </p>
+    <p style="font-size:15px;">
+      Anda dapat melihat privacy policy yang diterapkan oleh Google AdSense dengan mengunjungi link di berikut ini : http://www.google.com/privacy_ads.html.
+      Kami tidak memiliki kewenangan atas kebijakan privacy policy oleh Google AdSense dan atas iklan yang tertayang kami
+      menyatakan tunduk pada kebijakan privasi Google.
+    </p>
+    <p style="font-size:15px;">
+      Iklan atau jaringan iklan oleh pihak ketiga mungkin akan digunakan pada situs ometubetv.com. Atas iklan tersebut terdapat
+      kemungkinan digunakannya cookie untuk melacak aktivitas pengguna di website ini, untuk mengukur efektivitas iklan dan
+      alasan lainnya yang akan disediakan dalam kebijakan privasi mereka sendiri. Kami tidak memiliki akses atau kontrol
+      terhadap cookies yang mungkin digunakan oleh pihak ketiga pemasang iklan.
+    </p>
+    <p style="font-size:15px;">
+      Kami juga tidak memiliki kewenangan untuk memilah iklan mana saja yang akan tertampil di website kami. Kami tidak bertanggung
+      jawab atas materi iklan. Seluruh tanggung jawab atas materi iklan sepenuhnya berada di tangan para pengiklan.
+    </p>
+    <br>
+    <h4>Pengumpulan Data Pribadi</h4>
+    <p style="font-size:15px;">
+      Ketika mengunjungi situs ini, IP address yang Anda digunakan akan dicatat beserta tanggal dan waktu kunjungan. Informasi
+      yang didapatkan hanya digunakan untuk kepentingan pencatatan statistik dan analisa perilaku pengunjung serta untuk
+      tujuan internal lainnya.
+    </p>
+    <p style="font-size:15px;">
+      Kami tidak akan membagikan data-data tersebut kepada pihak lainnya dengan alasan dan tujuan apapun. Hal yang terpenting lainnya
+      adalah pengumpulan IP address tersebut tidak terhubung langsung dengan data-data pribadi Anda yang lainnya.
+    </p>
+    <br>
+    <h4>
+      Link Ke Sumber Lainnya
+    </h4>
+    <p style="font-size:15px;">
+      Dalam situs ini mungkin akan ada link ke sumber eksternal dengan tujuan untuk melengkapi informasi, menambahkan referensi
+      atau sumber tulisan/gambar. Kami tidak bertanggung jawab terhadap privacy policy yang berlaku pada blog/site tersebut.
+      Anda harus memperhatikan privacy policy yang berlaku pada lokasi tersebut.
+    </p>
+    <br>
+    <h4>Perubahan Privacy Policy</h4>
+    <p style="font-size:15px;">
+      Kebijakan privacy policy ini dapat kami ubah isinya kapanpun tanpa adanya pemberitahuan terlebih dahulu kepada para pengunjung.
+      Jika Anda memiliki pertanyaan terkait dengan privacy policy ini, Anda dapat mengirimkan pesan dengan mengisi contact
+      yang telah kami sediakan.
+    </p>
+  </div>
+  <div *ngIf="listchannel == true" style="margin-top:115px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let channel of channellist" class="slides-hover" col-4 padding style="text-align: center;background: #333232;border:2px solid;border-color:#26262d;border-radius: 5px;"
+          (click)="doDetail(channel)">
+          <p style="color:#fff;font-weight: bold;font-size:12px">{{channel.name}}</p>
         </ion-col>
       </ion-row>
     </ion-grid>

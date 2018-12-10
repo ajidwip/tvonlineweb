@@ -13,6 +13,7 @@ declare var Clappr: any;
 declare var LevelSelector: any;
 declare var videojs: any;
 declare var jwplayer: any;
+declare var window: any;
 
 @IonicPage()
 @Component({
@@ -40,6 +41,7 @@ export class ContactPage {
   public quality: any;
   public channelall = [];
   public widthscreen: any;
+  public loader: any;
 
   constructor(
     public navCtrl: NavController,
@@ -54,8 +56,17 @@ export class ContactPage {
     private youtube: YoutubeVideoPlayer,
     private androidFullScreen: AndroidFullScreen,
     private admob: AdMobPro) {
-  }
+      this.loader = this.loadingCtrl.create({
 
+      });
+      this.loader.present().then(() => {
+      });
+      this.width = window.screen.availWidth;
+      this.height = window.screen.availHeight;
+  }
+  ngAfterViewInit() {
+    this.loader.dismiss()
+  }
   doDetail(channel) {
     this.navCtrl.push('ChannelPage', {
       name: channel.name,
