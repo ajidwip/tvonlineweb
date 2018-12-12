@@ -6,15 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { ApiProvider } from '../providers/api/api';
 import { HttpClientModule } from '@angular/common/http';
-import { AdMobPro } from '@ionic-native/admob-pro';
 import { SafePipe } from '../pipes/safe/safe';
 import { HomePage } from '../pages/home/home';
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { AppVersion } from '@ionic-native/app-version';
-import { AndroidFullScreen } from '@ionic-native/android-full-screen';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 @NgModule({
   declarations: [
@@ -37,14 +30,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    ApiProvider,
-    AdMobPro,
-    ScreenOrientation,
-    AppVersion,
-    AndroidFullScreen,
-    InAppBrowser,
-    UniqueDeviceID,
-    YoutubeVideoPlayer
+    ApiProvider
   ]
 })
 export class AppModule { }

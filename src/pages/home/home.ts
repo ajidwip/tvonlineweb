@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
 import { LoadingController, NavController, Platform, AlertController, ToastController } from 'ionic-angular';
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { ApiProvider } from '../../providers/api/api';
-import { AdMobPro } from '@ionic-native/admob-pro';
 import moment from 'moment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpHeaders } from "@angular/common/http";
-import { AppVersion } from '@ionic-native/app-version';
 import { StatusBar } from '@ionic-native/status-bar';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 // declare var Swiper: any;
 declare var window: any;
@@ -55,18 +50,13 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    private screenOrientation: ScreenOrientation,
     public api: ApiProvider,
     public alertCtrl: AlertController,
     public platform: Platform,
     public loadingCtrl: LoadingController,
     public fb: FormBuilder,
-    public appVersion: AppVersion,
     private statusBar: StatusBar,
-    private uniqueDeviceID: UniqueDeviceID,
-    public toastCtrl: ToastController,
-    private youtube: YoutubeVideoPlayer,
-    private admob: AdMobPro) {
+    public toastCtrl: ToastController) {
     this.myForm = fb.group({
       comment: ['', Validators.compose([Validators.required])],
     })
@@ -94,41 +84,6 @@ export class HomePage {
   ionViewDidEnter() {
     this.mostwatch = [];
     this.doGetMostWatched();
-    this.uniqueDeviceID.get()
-      .then((uuid: any) => {
-        this.api.get("table/z_devices", { params: { limit: 100, filter: "uuid_device=" + "'" + uuid + "'" } })
-          .subscribe(val => {
-            let data = val['data']
-            if (data.length == 0) {
-              this.getNextNoDevices().subscribe(val => {
-                this.nextno = val['nextno'];
-                const headers = new HttpHeaders()
-                  .set("Content-Type", "application/json");
-                this.api.post("table/z_devices",
-                  {
-                    "id": this.nextno,
-                    "uuid_device": uuid
-                  },
-                  { headers })
-                  .subscribe(val => {
-                  }, (err) => {
-
-                  })
-              });
-            }
-            else {
-              this.favorit = [];
-              this.api.get("table/z_arsip_users", { params: { limit: 1000, filter: "uuid_device=" + "'" + uuid + "' AND type_arsip='fav'", sort: "date" + " DESC " } })
-                .subscribe(val => {
-                  this.favorit = val['data']
-                });
-            }
-          });
-      })
-      .catch((error: any) => console.log(error));
-    if (this.platform.is('cordova')) {
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-    }
   }
   ionViewWillLeave() {
   }
@@ -145,19 +100,6 @@ export class HomePage {
       }, err => {
         this.doGetListChannel();
       });
-  }
-  doDetailArsip() {
-    this.uniqueDeviceID.get()
-      .then((uuid: any) => {
-        this.navCtrl.push('ChannelPage', {
-          name: 'Arsip',
-          category: 'ARSIP',
-          type: 'GRID',
-          stream: '',
-          uuiddevices: uuid
-        })
-      })
-      .catch((error: any) => console.log(error));
   }
   doDetailMostWatched() {
     this.navCtrl.push('ChannelPage', {
@@ -228,124 +170,6 @@ export class HomePage {
       url: channeldetail.url,
       controls: channeldetail.controls
     })
-  }
-  doPreview(channeldetail) {
-    if (channeldetail.type == 'STREAM') {
-      this.api.get("table/z_channel_stream", { params: { limit: 1, filter: "id=" + "'" + channeldetail.id + "'" } })
-        .subscribe(val => {
-          let data = val['data']
-          const headers = new HttpHeaders()
-            .set("Content-Type", "application/json");
-          this.api.put("table/z_channel_stream",
-            {
-              "id": channeldetail.id,
-              "click": data[0].click + 1
-            },
-            { headers })
-            .subscribe(val => {
-            });
-        });
-    }
-    else if (channeldetail.type == 'TV') {
-      this.api.get("table/z_channel", { params: { limit: 1, filter: "id=" + "'" + channeldetail.id + "'" } })
-        .subscribe(val => {
-          let data = val['data']
-          const headers = new HttpHeaders()
-            .set("Content-Type", "application/json");
-          this.api.put("table/z_channel",
-            {
-              "id": channeldetail.id,
-              "click": data[0].click + 1
-            },
-            { headers })
-            .subscribe(val => {
-            });
-        });
-    }
-    if (channeldetail.type == 'STREAM') {
-      this.navCtrl.push('PreviewPage', {
-        id: channeldetail.id,
-        name: channeldetail.name,
-        title: channeldetail.title,
-        category: channeldetail.category,
-        trailer: channeldetail.trailer,
-        type: channeldetail.type,
-        stream: channeldetail.stream,
-        xml: channeldetail.xml,
-        plugin: channeldetail.plugin,
-        url: channeldetail.url,
-        controls: channeldetail.controls
-      })
-    }
-    else if (channeldetail.type == 'TV') {
-      if (channeldetail.plugin == '1') {
-        this.api.get("table/z_channel", { params: { limit: 30, filter: "id=" + "'" + channeldetail.id + "'" } })
-          .subscribe(val => {
-            var self = this
-            let data = val['data']
-            var videoUrl = data[0].url;
-            var options = {
-              successCallback: function () {
-
-              },
-              errorCallback: function (errMsg) {
-                self.api.get('nextno/z_report_url/id').subscribe(val => {
-                  let nextno = val['nextno'];
-                  const headers = new HttpHeaders()
-                    .set("Content-Type", "application/json");
-                  self.api.post("table/z_report_url",
-                    {
-                      "id": nextno,
-                      "id_channel": data[0].id,
-                      "name": data[0].name,
-                      "title": data[0].title,
-                      "url": data[0].url,
-                      "date": moment().format('YYYY-MM-DD HH:mm:ss'),
-                    },
-                    { headers })
-                    .subscribe(val => {
-                      let toast = self.toastCtrl.create({
-                        message: 'Report has been sent',
-                        duration: 3000
-                      });
-                      toast.present();
-                    });
-                });
-              },
-              orientation: 'landscape',
-              shouldAutoClose: true,  // true(default)/false
-              controls: channeldetail.controls // true(default)/false. Used to hide controls on fullscreen
-            };
-            window.plugins.streamingMedia.playVideo(videoUrl, options);
-          });
-      }
-      else if (channeldetail.plugin == '3') {
-        this.api.get("table/z_channel", { params: { limit: 30, filter: "id=" + "'" + channeldetail.id + "'" } })
-          .subscribe(val => {
-            var self = this
-            let data = val['data']
-            var videoUrl = data[0].url;
-            this.youtube.openVideo(videoUrl);
-          });
-      }
-      else {
-        this.api.get("table/z_channel", { params: { limit: 30, filter: "id=" + "'" + channeldetail.id + "'" } })
-          .subscribe(val => {
-            let data = val['data']
-            this.navCtrl.push('LivePage', {
-              url: data[0].url,
-              stream: channeldetail.stream,
-              xml: channeldetail.xml,
-              rotate: channeldetail.orientation,
-              thumbnail: channeldetail.thumbnail_picture,
-              subsbody1: channeldetail.subsbody_1,
-              subsbody2: channeldetail.subsbody_2,
-              subshead1: channeldetail.subshead_1,
-              subshead2: channeldetail.subshead_2
-            })
-          });
-      }
-    }
   }
   doGetMostWatched() {
     this.api.get("table/z_channel_stream", { params: { filter: "status='OPEN'", limit: 15, sort: "click" + " DESC " } })
@@ -442,20 +266,6 @@ export class HomePage {
   getNextNo() {
     return this.api.get('nextno/z_comment/id')
   }
-  doGoToPlaystore() {
-    this.appVersion.getPackageName().then((name) => {
-      this.packagename = name;
-      this.api.get("table/z_version", { params: { filter: "name=" + "'" + this.packagename + "'" } })
-        .subscribe(val => {
-          this.appinfo = val['data']
-          if (this.appinfo.length) {
-            window.location.href = this.appinfo[0].url
-          }
-        });
-    }, err => {
-
-    });
-  }
   getSearch(ev: any) {
     let value = ev.target.value;
 
@@ -495,169 +305,6 @@ export class HomePage {
     } else {
       this.listchannellive = [];
     }
-  }
-  doPlay(notlive) {
-    this.channelstream = notlive.stream
-    if ((notlive.type == 'STREAM' && notlive.name == 'Anime') || (notlive.type == 'STREAM' && notlive.name == 'Film Series')) {
-      this.navCtrl.push('ChanneldetailPage', {
-        anime: notlive.title
-      })
-    }
-    else if (notlive.type == 'RADIO') {
-      this.radiostream = this.radiostream ? false : true;
-      this.url = notlive.url
-      this.id = notlive.id
-    }
-    else if (notlive.plugin == '1') {
-      this.api.get("table/z_channel", { params: { limit: 30, filter: "id=" + "'" + notlive.id + "'" } })
-        .subscribe(val => {
-          var self = this;
-          let data = val['data']
-          var videoUrl = data[0].url;
-          var options = {
-            successCallback: function () {
-
-            },
-            errorCallback: function (errMsg) {
-              self.api.get('nextno/z_report_url/id').subscribe(val => {
-                let nextno = val['nextno'];
-                const headers = new HttpHeaders()
-                  .set("Content-Type", "application/json");
-                self.api.post("table/z_report_url",
-                  {
-                    "id": nextno,
-                    "id_channel": data[0].id,
-                    "name": data[0].name,
-                    "title": data[0].title,
-                    "url": data[0].url,
-                    "date": moment().format('YYYY-MM-DD HH:mm:ss'),
-                  },
-                  { headers })
-                  .subscribe(val => {
-                    let toast = self.toastCtrl.create({
-                      message: 'Report has been sent',
-                      duration: 3000
-                    });
-                    toast.present();
-                  });
-              });
-            },
-            orientation: 'landscape',
-            shouldAutoClose: true,  // true(default)/false
-            controls: notlive.controls // true(default)/false. Used to hide controls on fullscreen
-          };
-          window.plugins.streamingMedia.playVideo(videoUrl, options);
-        });
-    }
-    else if (notlive.plugin == '3') {
-      this.api.get("table/z_channel", { params: { limit: 30, filter: "id=" + "'" + notlive.id + "'" } })
-        .subscribe(val => {
-          var self = this;
-          let data = val['data']
-          var videoUrl = data[0].url;
-          this.youtube.openVideo(videoUrl);
-        });
-    }
-    else {
-      if (notlive.type == 'TV') {
-        this.api.get("table/z_channel", { params: { limit: 30, filter: "id=" + "'" + notlive.id + "'" } })
-          .subscribe(val => {
-            let data = val['data']
-            this.navCtrl.push('LivePage', {
-              url: data[0].url,
-              stream: notlive.stream,
-              xml: notlive.xml,
-              rotate: notlive.orientation,
-              subsbody1: notlive.subsbody_1,
-              subsbody2: notlive.subsbody_2,
-              subshead1: notlive.subshead_1,
-              subshead2: notlive.subshead_2
-            })
-          });
-      }
-      else if (notlive.type == 'STREAM') {
-        this.api.get("table/z_channel_stream", { params: { limit: 30, filter: "id=" + "'" + notlive.id + "'" } })
-          .subscribe(val => {
-            let data = val['data']
-            this.navCtrl.push('LivePage', {
-              url: data[0].url,
-              stream: notlive.stream,
-              xml: notlive.xml,
-              rotate: notlive.orientation,
-              subsbody1: notlive.subsbody_1,
-              subsbody2: notlive.subsbody_2,
-              subshead1: notlive.subshead_1,
-              subshead2: notlive.subshead_2
-            })
-          });
-      }
-    }
-  }
-  doPlayLive(livedetail) {
-    this.api.get("table/z_channel_live", { params: { limit: 30, filter: "id=" + "'" + livedetail.id + "'" } })
-      .subscribe(val => {
-        let data = val['data'];
-        if (data[0].url && livedetail.plugin != '1') {
-          this.navCtrl.push('LivePage', {
-            url: data[0].url,
-            stream: livedetail.stream,
-            xml: livedetail.xml,
-            rotate: livedetail.orientation,
-            subsbody1: livedetail.subsbody_1,
-            subsbody2: livedetail.subsbody_2,
-            subshead1: livedetail.subshead_1,
-            subshead2: livedetail.subshead_2
-          })
-        }
-        else if (data[0].url && livedetail.plugin == '1') {
-          var self = this;
-          var videoUrl = data[0].url;
-          var options = {
-            successCallback: function () {
-            },
-            errorCallback: function (errMsg) {
-              self.api.get('nextno/z_report_url/id').subscribe(val => {
-                let nextno = val['nextno'];
-                const headers = new HttpHeaders()
-                  .set("Content-Type", "application/json");
-                self.api.post("table/z_report_url",
-                  {
-                    "id": nextno,
-                    "id_channel": data[0].id,
-                    "name": data[0].name,
-                    "title": data[0].title,
-                    "url": data[0].url,
-                    "date": moment().format('YYYY-MM-DD HH:mm:ss'),
-                  },
-                  { headers })
-                  .subscribe(val => {
-                    let toast = self.toastCtrl.create({
-                      message: 'Report has been sent',
-                      duration: 3000
-                    });
-                    toast.present();
-                  });
-              });
-            },
-            orientation: 'landscape',
-            shouldAutoClose: true,  // true(default)/false
-            controls: livedetail.controls // true(default)/false. Used to hide controls on fullscreen
-          };
-          window.plugins.streamingMedia.playVideo(videoUrl, options);
-        }
-        else if (data[0].url && livedetail.plugin == '3') {
-          let self = this;
-          let videoUrl = data[0].url;
-          this.youtube.openVideo(videoUrl);
-        }
-        else {
-          let alert = this.alertCtrl.create({
-            subTitle: 'Pertandingan belum dimulai',
-            buttons: ['OK']
-          });
-          alert.present();
-        }
-      });
   }
   doGrid() {
     this.list = false;
@@ -739,147 +386,6 @@ export class HomePage {
   }
   doSelectQuality() {
     console.log(this.qualityid)
-  }
-  doPlayer() {
-    if (this.qualityid === '') {
-      let alert = this.alertCtrl.create({
-        subTitle: 'Silahkan pilih server terlebih dahulu !!!',
-        buttons: ['OK']
-      });
-      alert.present();
-    }
-    else {
-      this.doCloseQuality()
-      this.api.get("table/z_channel_url", { params: { limit: 10, filter: "id=" + "'" + this.qualityid + "'" } })
-        .subscribe(val => {
-          let data = val['data']
-          if (data[0].plugin == '1') {
-            var self = this
-            var videoUrl = data[0].url;
-            var options = {
-              successCallback: function () {
-
-              },
-              errorCallback: function (errMsg) {
-                self.api.get('nextno/z_report_url/id').subscribe(val => {
-                  let nextno = val['nextno'];
-                  const headers = new HttpHeaders()
-                    .set("Content-Type", "application/json");
-                  self.api.post("table/z_report_url",
-                    {
-                      "id": nextno,
-                      "id_channel": data[0].id,
-                      "name": data[0].name,
-                      "title": data[0].title,
-                      "url": data[0].url,
-                      "date": moment().format('YYYY-MM-DD HH:mm:ss'),
-                    },
-                    { headers })
-                    .subscribe(val => {
-                      let toast = self.toastCtrl.create({
-                        message: 'Report has been sent',
-                        duration: 3000
-                      });
-                      toast.present();
-                    });
-                });
-              },
-              orientation: 'landscape',
-              shouldAutoClose: true,  // true(default)/false
-              controls: data[0].controls // true(default)/false. Used to hide controls on fullscreen
-            };
-            window.plugins.streamingMedia.playVideo(videoUrl, options);
-          }
-          else if (data[0].plugin == '3') {
-            this.youtube.openVideo(videoUrl);
-          }
-          else if (data[0].plugin == '9') {
-            let dataurl = data[0].url
-            let url = dataurl.substring(30, 60)
-            this.youtube.openVideo(url);
-          }
-          else {
-            this.navCtrl.push('LivePage', {
-              url: data[0].url,
-              stream: data[0].stream,
-              xml: data[0].xml,
-              rotate: data[0].orientation,
-              thumbnail: data[0].thumbnail_picture,
-              subsbody1: data[0].subsbody_1,
-              subsbody2: data[0].subsbody_2,
-              subshead1: data[0].subshead_1,
-              subshead2: data[0].subshead_2
-            })
-          }
-        });
-    }
-  }
-  doPlayerLive() {
-    this.api.get("table/z_channel_live", { params: { limit: 30, filter: "id=" + "'" + this.qualityid + "'" } })
-      .subscribe(val => {
-        let data = val['data'];
-        if (data[0].url && data[0].plugin != '1') {
-          this.navCtrl.push('LivePage', {
-            url: data[0].url,
-            stream: data[0].stream,
-            xml: data[0].xml,
-            rotate: data[0].orientation,
-            subsbody1: data[0].subsbody_1,
-            subsbody2: data[0].subsbody_2,
-            subshead1: data[0].subshead_1,
-            subshead2: data[0].subshead_2
-          })
-        }
-        else if (data[0].url && data[0].plugin == '1') {
-          var self = this;
-          var videoUrl = data[0].url;
-          var options = {
-            successCallback: function () {
-            },
-            errorCallback: function (errMsg) {
-              self.api.get('nextno/z_report_url/id').subscribe(val => {
-                let nextno = val['nextno'];
-                const headers = new HttpHeaders()
-                  .set("Content-Type", "application/json");
-                self.api.post("table/z_report_url",
-                  {
-                    "id": nextno,
-                    "id_channel": data[0].id,
-                    "name": data[0].name,
-                    "title": data[0].title,
-                    "url": data[0].url,
-                    "date": moment().format('YYYY-MM-DD HH:mm:ss'),
-                  },
-                  { headers })
-                  .subscribe(val => {
-                    let toast = self.toastCtrl.create({
-                      message: 'Report has been sent',
-                      duration: 3000
-                    });
-                    toast.present();
-                  });
-              });
-            },
-            orientation: 'landscape',
-            shouldAutoClose: true,  // true(default)/false
-            controls: data[0].controls // true(default)/false. Used to hide controls on fullscreen
-          };
-          window.plugins.streamingMedia.playVideo(videoUrl, options);
-        }
-        else if (data[0].url && data[0].plugin == '9') {
-          let dataurl = data[0].url
-          let url = dataurl.substring(30, 60)
-          this.youtube.openVideo(url);
-
-        }
-        else {
-          let alert = this.alertCtrl.create({
-            subTitle: 'Pertandingan belum dimulai',
-            buttons: ['OK']
-          });
-          alert.present();
-        }
-      });
   }
   doPlayerweb(channeldetail) {
     this.navCtrl.push('PlayerPage', {

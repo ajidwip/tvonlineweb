@@ -6,7 +6,6 @@ import { HttpHeaders } from "@angular/common/http";
 import { ApiProvider } from '../providers/api/api';
 import { HomePage } from '../pages/home/home';
 import moment from 'moment';
-import { AppVersion } from '@ionic-native/app-version';
 
 declare var window: any;
 
@@ -25,7 +24,6 @@ export class MyApp {
     public events: Events,
     public app: App,
     public api: ApiProvider,
-    public appVersion: AppVersion,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController) {
     this.loader = this.loadingCtrl.create({

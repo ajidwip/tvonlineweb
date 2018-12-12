@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { ToastController, IonicPage, LoadingController, NavController, Platform, AlertController, NavParams } from 'ionic-angular';
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { ApiProvider } from '../../providers/api/api';
-import { AdMobPro } from '@ionic-native/admob-pro';
 import moment from 'moment';
-import { AndroidFullScreen } from '@ionic-native/android-full-screen';
-import { AppVersion } from '@ionic-native/app-version';
 import { HttpHeaders } from "@angular/common/http";
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 declare var Clappr: any;
 declare var LevelSelector: any;
@@ -51,17 +46,12 @@ export class PlayerPage {
 
   constructor(
     public navCtrl: NavController,
-    private screenOrientation: ScreenOrientation,
     public api: ApiProvider,
     public alertCtrl: AlertController,
     public platform: Platform,
     public navParam: NavParams,
-    public appVersion: AppVersion,
     public toastCtrl: ToastController,
-    public loadingCtrl: LoadingController,
-    private youtube: YoutubeVideoPlayer,
-    private androidFullScreen: AndroidFullScreen,
-    private admob: AdMobPro) {
+    public loadingCtrl: LoadingController) {
     this.widthscreen = window.screen.availWidth;
     this.heightscreen = window.screen.availHeight;
     this.loading = this.loadingCtrl.create({
