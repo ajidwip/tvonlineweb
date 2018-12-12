@@ -15,7 +15,7 @@
   <ion-grid style="width:100%;padding-left:60px;padding-right:60px;padding-top:100px;">
     <!-- <ion-row>
         <ion-col col-12>
-          <a href="http://103.10.200.61/home" alt="Pokercc by Texaspoker.cc" title="texaspoker.cc" target="_blank" rel="nofollow"><img src="wp-content/uploads/TPK.gif" width="100%" height="120px"></a>
+          <a href="//103.10.200.61/home" alt="Pokercc by Texaspoker.cc" title="texaspoker.cc" target="_blank" rel="nofollow"><img src="wp-content/uploads/TPK.gif" width="100%" height="120px"></a>
         </ion-col>
       </ion-row> -->
     <ion-row *ngIf="listchannel == true">
@@ -53,8 +53,8 @@
             </ion-row>
             <div id="embed" style="display:none;margin-bottom:-5px;background: -webkit-linear-gradient(rgba(0,0,0,.9) 1%,rgba(0,0,0,.8) 15%,rgba(0,0,0,.7) 30%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.3) 75%,transparent);
                 background: linear-gradient(rgba(0,0,0,.9) 1%,rgba(0,0,0,.8) 15%,rgba(0,0,0,.7) 30%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.3) 75%,transparent);">
-              <iframe [src]="urlembed | safe:'resourceUrl'" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
-                allowfullscreen="allowfullscreen" width="100%" height="480px" allowtransparency="true" frameborder="0"></iframe>
+              <iframe *ngIf="urlembed" [src]="urlembed | safe:'resourceUrl'" allowfullscreen="allowfullscreen" width="100%" height="480px" allowtransparency="true"
+                frameborder="0"></iframe>
             </div>
             <div id="myElement" style="width:100%;height:100%;display:none;background: -webkit-linear-gradient(rgba(0,0,0,.9) 1%,rgba(0,0,0,.8) 15%,rgba(0,0,0,.7) 30%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.3) 75%,transparent);
                 background: linear-gradient(rgba(0,0,0,.9) 1%,rgba(0,0,0,.8) 15%,rgba(0,0,0,.7) 30%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.3) 75%,transparent);"></div>
@@ -97,7 +97,7 @@
   <ion-grid style="width:100%;padding-top:100px;">
     <!-- <ion-row>
             <ion-col col-12>
-              <a href="http://103.10.200.61/home" alt="Pokercc by Texaspoker.cc" title="texaspoker.cc" target="_blank" rel="nofollow"><img src="wp-content/uploads/TPK.gif" width="100%" height="120px"></a>
+              <a href="//103.10.200.61/home" alt="Pokercc by Texaspoker.cc" title="texaspoker.cc" target="_blank" rel="nofollow"><img src="wp-content/uploads/TPK.gif" width="100%" height="120px"></a>
             </ion-col>
           </ion-row> -->
     <ion-row *ngIf="listchannel == true">
@@ -135,7 +135,7 @@
             </ion-row>
             <div id="embed" style="display:none;margin-bottom:-5px;background: -webkit-linear-gradient(rgba(0,0,0,.9) 1%,rgba(0,0,0,.8) 15%,rgba(0,0,0,.7) 30%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.3) 75%,transparent);
                     background: linear-gradient(rgba(0,0,0,.9) 1%,rgba(0,0,0,.8) 15%,rgba(0,0,0,.7) 30%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.3) 75%,transparent);">
-              <iframe [src]="urlembed | safe:'resourceUrl'" allowfullscreen="allowfullscreen" allowtransparency="true" frameborder="0"
+              <iframe *ngIf="urlembed" [src]="urlembed | safe:'resourceUrl'" allowfullscreen="allowfullscreen" allowtransparency="true" frameborder="0"
                 scrolling="no" width="100%" height="480px"></iframe>
             </div>
             <div id="myElement" style="width:100%;height:100%;display:none;background: -webkit-linear-gradient(rgba(0,0,0,.9) 1%,rgba(0,0,0,.8) 15%,rgba(0,0,0,.7) 30%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.3) 75%,transparent);

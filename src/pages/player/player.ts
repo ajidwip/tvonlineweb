@@ -118,7 +118,7 @@ export class PlayerPage {
             visualplaylist: false,
             skin: { "active": "#DF2148", "inactive": "#CCCCCC", "name": "glow" },
             plugins: {
-              "https://www.metube.id/cc-content/themes/default/js/ping.js": { "pixel": "http://content.jwplatform.com/ping.gif" }
+              "https://www.metube.id/cc-content/themes/default/js/ping.js": { "pixel": "//content.jwplatform.com/ping.gif" }
             }
           });
           jwplayer('myElement').on('play', function () {
@@ -158,7 +158,7 @@ export class PlayerPage {
             visualplaylist: false,
             skin: { "active": "#DF2148", "inactive": "#CCCCCC", "name": "glow" },
             plugins: {
-              "https://www.metube.id/cc-content/themes/default/js/ping.js": { "pixel": "http://content.jwplatform.com/ping.gif" }
+              "https://www.metube.id/cc-content/themes/default/js/ping.js": { "pixel": "//content.jwplatform.com/ping.gif" }
             }
           });
           jwplayer('myElement').on('play', function () {
@@ -266,7 +266,7 @@ export class PlayerPage {
         visualplaylist: false,
         skin: { "active": "#DF2148", "inactive": "#CCCCCC", "name": "glow" },
         plugins: {
-          "https://www.metube.id/cc-content/themes/default/js/ping.js": { "pixel": "http://content.jwplatform.com/ping.gif" }
+          "https://www.metube.id/cc-content/themes/default/js/ping.js": { "pixel": "//content.jwplatform.com/ping.gif" }
         }
       });
       jwplayer('myElement').on('play', function () {
@@ -358,7 +358,7 @@ export class PlayerPage {
           visualplaylist: false,
           skin: { "active": "#DF2148", "inactive": "#CCCCCC", "name": "glow" },
           plugins: {
-            "https://www.metube.id/cc-content/themes/default/js/ping.js": { "pixel": "http://content.jwplatform.com/ping.gif" }
+            "https://www.metube.id/cc-content/themes/default/js/ping.js": { "pixel": "//content.jwplatform.com/ping.gif" }
           }
         });
         jwplayer('myElement').on('play', function () {
